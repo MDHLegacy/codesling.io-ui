@@ -55,12 +55,20 @@ class Sling extends Component {
   }
 
   submitCode = () => {
-    const { socket, player } = this.props;
+    console.log(this.props);
+    const { socket, player, } = this.props;
+    const tests  = this.props.challenge.data.split(', ') //.slice(1, this.props.challenge.data.length - 1).split(',')
     const { ownerText, challengerText } = this.state;
+
+    // const testCases = {
+    //   input: [1, 2, 3],
+    //   out: [6, 7, 8],
+    // };
+    console.log(tests);
     if (player === 1) {
-      socket.emit('client.run', { text: ownerText, player });
+      socket.emit('client.run', { text: ownerText, player, tests });
     } else {
-      socket.emit('client.run', { text: challengerText, player });
+      socket.emit('client.run', { text: challengerText, player, tests });
     }
   }
 
