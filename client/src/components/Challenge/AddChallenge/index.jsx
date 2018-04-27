@@ -12,8 +12,9 @@ class AddChallenge extends Component {
     title: '',
     content: '',
     difficulty: null,
-    input1: '',
-    output1: '',
+    testCount: 1,
+    input: {},
+    output: {},
    }
 
   submitChallenge = async (e) => {
@@ -31,7 +32,7 @@ class AddChallenge extends Component {
     console.log('this is the result of sending the challenge', result);
     
     const tests = {
-      data: input1 + ', ' + output1,
+      data: Object.values(this.state.input).concat(Object.values(this.state.output)).join(', '),
       challenge_id: result.data[0].id,
     }
     console.log('this is the test object', tests);
@@ -40,12 +41,29 @@ class AddChallenge extends Component {
     this.props.history.push('/home');
   }
 
+  addTest(e) {
+    console.log('this is the state when adding a test', this.state);
+    e.preventDefault();
+    this.setState({testCount: this.state.testCount + 1});    
+  }
+
   handleChallengeInput = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   }
+  
+  handleTestInput = (event) => {
+    const { name, value } = event.target;
+    this.setState({ input: Object.assign( {}, this.state.input, { [name] : value }) });
+  }
+
+  handleTestOutput = (event) => {
+    const { name, value } = event.target;
+    this.setState({ output: Object.assign( {}, this.state.output, { [name] : value }) });
+  }
 
   render() {
+    console.log(this.state.testCount);
     return (
       <div className="login-form-container">
         <Logo
@@ -70,17 +88,36 @@ class AddChallenge extends Component {
             placeholder={'enter your difficulty'}
             onChange={this.handleChallengeInput}
             />
-          <Input 
-            name='input1'
-            type='input1'
-            placeholder={'enter input'}
-            onChange={this.handleChallengeInput}
-            />
-          <Input 
-            name='output1'
-            type='output1'
-            placeholder={'enter expected output'}
-            onChange={this.handleChallengeInput}
+          {
+            this.state.testCount > 0
+            ?
+            Array.apply(null, {length: this.state.testCount})
+            .map(Number.call, Number)
+            .map((testNum) => 
+              <div>
+                <Input 
+                  name={`input${testNum}`}
+                  type={`input${testNum}`}
+                  placeholder={'enter input'}
+                  onChange={(e) => this.handleTestInput(e, testNum)}
+                  />
+                <Input 
+                  name={`output${testNum}`}
+                  type={`output${testNum}`}
+                  placeholder={'enter expected output'}
+                  onChange={(e) => this.handleTestOutput(e, testNum)}
+                  />
+              </div>
+            )
+            :
+            <div/>
+          }  
+          
+          <Button
+            backgroundColor="red"
+            color="white"
+            text="Add Test"
+            onClick={this.addTest.bind(this)}
             />
           <Button
             backgroundColor="red"

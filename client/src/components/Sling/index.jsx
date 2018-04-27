@@ -16,7 +16,7 @@ class SlingIndex extends Component {
       }
     });
     this.setState({ socket: this.socket });
-    console.log('this is props.location', this.props.location.state);
+    console.log('this is props.location', this.props);
   }
 
   render() {

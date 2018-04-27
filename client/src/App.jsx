@@ -30,9 +30,13 @@ class App extends Component {
           <Route path='/challenge' component={(props) => (
             <Protected component={Challenge} {...props} />
           )}/>
-          <Route path='/slinger' component={Slinger} />
+          <Route path='/slinger' component={(props) => (
+            <Protected component={Slinger} {...props} />
+          )}/>
           <Route path='/history' component={History} />
-          <Route path='/:sling' component={Sling} />
+          <Route path='/:sling' component={(props) => (
+            <Protected component={Sling} {...props} />
+          )}/>
           <Route path='/' component={LandingPage} />
         </Switch>
       </div>

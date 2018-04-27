@@ -69,12 +69,12 @@ module.exports = {
   //   new ExtractTextPlugin('./client/styles/main.css', {
   //     allChunks: true
   //   }),
-    // new OptimizeCssAssetsPlugin({
-    //   assetNameRegExp: /\.optimize\.css$/g,
-    //   cssProcessor: require('cssnano'),
-    //   cssProcessorOptions: { discardComments: { removeAll: true } },
-    //   canPrint: true
-    // }),
+  //   new OptimizeCssAssetsPlugin({
+  //     assetNameRegExp: /\.optimize\.css$/g,
+  //     cssProcessor: require('cssnano'),
+  //     cssProcessorOptions: { discardComments: { removeAll: true } },
+  //     canPrint: true
+  //   }),
   // ]
 }
 
